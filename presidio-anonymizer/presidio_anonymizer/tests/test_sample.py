@@ -13,7 +13,7 @@ def test_sample_run_anonymizer():
     # Verify the first item details
     item = result.items[0]
     assert item.start == 11
-    assert item.end == 15
+    assert item.end == 14
     assert item.entity_type == "PERSON"
     assert item.text == "BIP"
     assert item.operator == "replace"
