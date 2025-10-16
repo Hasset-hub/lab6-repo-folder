@@ -1,7 +1,7 @@
 from presidio_anonymizer import AnonymizerEngine
 from presidio_anonymizer.entities import RecognizerResult, OperatorConfig
 
-def sample_run_anonymizer():
+def sample_run_anonymizer(text: str, start: int, end: int):
     # Initialize the engine
     engine = AnonymizerEngine()
 
@@ -14,7 +14,7 @@ def sample_run_anonymizer():
         operators={"PERSON": OperatorConfig("replace", {"new_value": "BIP"})}
     )
 
-    print(result)
+    return result
 
     # input should be:
     # text: My name is Bond.
@@ -28,5 +28,9 @@ def sample_run_anonymizer():
     #     {'start': 11, 'end': 14, 'entity_type': 'PERSON', 'text': 'BIP', 'operator': 'replace'}
     # ]
 
-if __name__ == "__main__": 
-    sample_run_anonymizer();
+if __name__ == "__main__":
+    text_input = "My name is Bond."
+    start_input = 11
+    end_input = 15 
+    result = sample_run_anonymizer(text_input, start_input, end_input);
+    print(result)
