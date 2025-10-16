@@ -1,25 +1,19 @@
-import pytest
 from presidio_anonymizer.sample import sample_run_anonymizer
 
-@pytest.mark.parametrize(
-    # fmt: off
-    "text, start, end, expected_text, expected_items",
-    [
-        (
-            "My name is Bond.", 
-            11, 
-            15, 
-            "My name is BIP.",
-            [{'start': 11, 'end': 14, 'entity_type': 'PERSON', 'text': 'BIP', 'operator': 'replace'}]
-        ),
-    ],
-    # fmt: on
-)
-def test_sample_run_anonymizer(text, start, end, expected_text, expected_items):
-    result = sample_run_anonymizer(text, start, end)
+def test_sample_run_anonymizer():
+    # Run the anonymizer
+    result = sample_run_anonymizer("My name is Bond.", 11, 15)
 
-    # Check that the text is correctly anonymized
-    assert result.text == expected_text
+    # Check the anonymized text
+    assert result.text == "My name is BIP."
 
-    # Check that the items list is correct
-    assert result.items == expected_items
+    # Ensure one item was anonymized
+    assert len(result.items) == 1
+
+    # Verify the first item details
+    item = result.items[0]
+    assert item["start"] == 11
+    assert item["end"] == 14
+    assert item["entity_type"] == "PERSON"
+    assert item["text"] == "BIP"
+    assert item["operator"] == "replace"
