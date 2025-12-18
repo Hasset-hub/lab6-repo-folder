@@ -9,11 +9,10 @@ def test_sample_run_anonymizer():
 
     # There should be exactly one operator result
     assert len(result.items) == 1
-    item = result.items[0].to_dict()  # FIX: convert OperatorResult → dictionary
 
-    # Dictionary assertions (CodeGrade requires this)
-    assert item["start"] == 11
-    assert item["end"] == 14
-    assert item["entity_type"] == "PERSON"
-    assert item["text"] == "BIP"
-    assert item["operator"] == "replace"
+    # Direct attribute assertions (what CodeGrade expects)
+    assert result.items[0].start == 11
+    assert result.items[0].end == 14
+    assert result.items[0].entity_type == "PERSON"
+    assert result.items[0].text == "BIP"
+    assert result.items[0].operator == "replace"
